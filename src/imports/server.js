@@ -5,6 +5,17 @@ import CreateApp from './app'
 
 const isDev = process.env.NODE_ENV !== 'production'
 
+// This allow the App (client) to get environment variables configured on the server (via docker -e or meteor commandline)
+if (Meteor.isServer) {
+   Meteor.methods({
+      getEnv: function(node){
+        console.log(process.env[node]);
+        return process.env[node];
+      }
+   });
+}
+
+
 /*
 // Simple createApp
 VueSSR.createApp = function (context) {
